@@ -14,7 +14,7 @@ html{scroll-behavior: smooth;
 }
 
 body{
-  background-image: linear-gradient(to right bottom, #fbdb89, #f48982);
+  background-image: linear-gradient(to right bottom, #fbdb89, #f48982 #f6cfcc7b);
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;

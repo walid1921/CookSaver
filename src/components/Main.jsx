@@ -21,7 +21,6 @@ const Main = () => {
 
       <div className='background-pizza h-[25%] object-cover relative'>
 
-        {/* <img src={pizza1} alt="" className='h-[25%] w-full object-cover' /> */}
         <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
           <p className=' logo-font text-white font-semibold text-[40px] opacity-100'>
             CALIFORNIA PIZZA

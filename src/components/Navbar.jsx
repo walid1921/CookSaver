@@ -10,6 +10,7 @@ import { FiBookmark } from "react-icons/fi";
 import { FiEdit } from "react-icons/fi";
 import { ImSpoonKnife } from "react-icons/im";
 import SavedRecipes from './UI/SavedRescipes';
+import AddRecipe from './UI/AddRecipe';
 
 
 
@@ -19,6 +20,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => { setIsOpen(!isOpen) }
 
+  const [addRecipe, setAddRecipe] = useState(false)
+  const RecipeWindow = () => { setAddRecipe(true) }
+
+
   const menuRef = useRef(null)
 
   const handleClickOutside = (event) => {
@@ -26,6 +31,7 @@ const Navbar = () => {
       setIsOpen(false)
     }
   }
+
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -44,7 +50,6 @@ const Navbar = () => {
 
         <div className='rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
           <a href="/"><ImSpoonKnife className='w-7 h-7 text-white' /></a>
-          {/* <img src={logo} alt="" className='w-32 ml-5' /> */}
         </div>
         <span className='logo-font text-gray-500 font-semibold text-[40px]'>Forkify</span>
       </div>
@@ -56,14 +61,16 @@ const Navbar = () => {
         <Button />
       </div>
 
-     
+
       <div className='flex items-center gap-10 mr-5'>
 
         {/* NEW RECIPE */}
 
-        <div>
+        <div onClick={RecipeWindow}>
           <FiEdit className=' text-color-primary w-6 h-6 cursor-pointer' />
         </div>
+
+
 
         {/* BOOKMARK  */}
 
@@ -73,6 +80,12 @@ const Navbar = () => {
         </div>
 
       </div>
+
+
+      {/* Add Recipe  */}
+
+      {addRecipe && <AddRecipe setAddRecipe={setAddRecipe} />}
+
 
 
       {/* small nav  */}
@@ -91,8 +104,6 @@ const Navbar = () => {
           </div>
         </li>
 
-        
-
         <li className='flex items-center gap-4 py-2 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 rounded-bl-xl'>
           <div className='pl-8 '>
             <img src={pizza1} alt="" className='h-12 w-12 rounded-full ' />
@@ -104,20 +115,7 @@ const Navbar = () => {
           </div>
         </li>
 
-
       </div>
-
-
-
-
-      {/* (ARRAY{"1 1/2 cups warm water" ,"1 package of active dry yeast" ,"3 1/2 cups bread flour" ,"2 tbsps olive oil" ,"2 tsps salt" ,"1 tsp sugar" ,"Olive oil" ,"Cornmeal" ,"Tomato sauce" ,"Mozzarella or parmesan cheese shredded" ,"Feta cheese" ,"Mushrooms thinly sliced" ,"Bell peppers stems and seeds removed thinly sliced" ,"Italian sausage cooked ahead" ,"Chopped fresh basil" ,"Pesto" ,"Pepperoni thinly sliced" ,"Onions thinly sliced" ,"Sliced ham" ,"A pizza stone highly recommended if you want your pizza dough to be crusty" ,"A pizza peel or a flat baking sheet" ,"A pizza wheel for cutting the pizza not required but easier to deal with than a knife"}) */}
-
-
-
-
-
-
-
 
     </div>
   );
