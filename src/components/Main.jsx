@@ -12,7 +12,7 @@ import { FiCheck } from "react-icons/fi";
 
 
 const Main = () => {
-  const { bookmarkCount, setBookmarkCount } = useContext(BookmarkContext);
+  const { setBookmarkCount } = useContext(BookmarkContext);
 
   const [time, setTime] = useState(120);
   const handleTimeChange = (value) => {
