@@ -21,7 +21,7 @@ const SearchResult = () => {
 
         <li className='flex items-center gap-4 pt-6 pb-4 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150'>
           <div className='pl-8 '>
-            <img src={pizza1} alt="" className='h-16 w-16 rounded-full ' />
+            <img src={pizza2} alt="" className='h-16 w-16 rounded-full ' />
           </div>
           <div>
             <h3 className='text-md text-color-primary uppercase font-semibold'>California Pizza</h3>
@@ -30,9 +30,9 @@ const SearchResult = () => {
           </div>
         </li>
 
-        <li className='flex items-center gap-4 py-4 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150'>
+        <li className='flex items-center gap-4 py-4 hover:bg-color-grey-light-1 bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150'>
           <div className='pl-8 '>
-            <img src={pizza2} alt="" className='h-16 w-16 rounded-full ' />
+            <img src={pizza1} alt="" className='h-16 w-16 rounded-full ' />
           </div>
           <div>
             <h3 className='text-md text-color-primary uppercase font-semibold'>CAULIFLOWER PIZZA CRUST</h3>
