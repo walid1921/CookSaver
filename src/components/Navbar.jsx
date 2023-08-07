@@ -44,7 +44,7 @@ const Navbar = () => {
 
 
   return (
-    <div className='col-span-3  w-full center-between text-white bg-color-grey-light-1  h-28  z-10 rounded-t-xl px-10 mt-20'>
+    <div className='col-span-3  w-full center-between text-white bg-color-grey-light-1  h-28  z-10 rounded-t-xl px-10 mt-20 relative'>
 
       {/* logo */}
       <div className='flex items-center gap-3'>
@@ -73,7 +73,7 @@ const Navbar = () => {
 
 
         {/* BOOKMARK  */}
-        <div>
+        <div >
           <div className='relative cursor-pointer' onClick={handleOpen} ref={menuRef}>
             <FiBookmark className=' text-color-primary w-6 h-6 ' />
             <span className=' bg-gradient-to-br from-color-primary to-color-grad-1 text-white text-xs font-bold border border-color-grad-1 rounded-full px-1  absolute -top-2 -right-1'>{bookmarkCount}</span>
@@ -82,11 +82,11 @@ const Navbar = () => {
 
           {/* small nav  */}
 
-          <div className={`${isOpen ? 'flex' : ' top-[-100%]'} flex-col w-[16%] backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-48 right-[265px] rounded-bl-xl `} >
+          <div className={`${isOpen ? 'flex' : 'hidden'} flex-col backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-28 right-0 rounded-bl-xl`} >
 
 
-            <li className='flex items-center gap-4 pt-4 py-2 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
-              <div className='pl-8 '>
+            <li className='flex items-center gap-4 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
+              <div >
                 <img src={pizza1} alt="" className='h-12 w-12 rounded-full ' />
               </div>
               <div>
@@ -96,8 +96,8 @@ const Navbar = () => {
               </div>
             </li>
 
-            <li className='flex items-center gap-4 py-2 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 rounded-bl-xl'>
-              <div className='pl-8 '>
+            <li className='flex items-center gap-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 rounded-bl-xl'>
+              <div >
                 <img src={pizza1} alt="" className='h-12 w-12 rounded-full ' />
               </div>
               <div>
