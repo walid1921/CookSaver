@@ -11,7 +11,10 @@ import { FiCheck } from "react-icons/fi";
 
 
 
-const Main = () => {
+const Main = ({ recipes  }) => {
+
+
+
   const { setBookmarkCount } = useContext(BookmarkContext);
 
   const [time, setTime] = useState(120);
@@ -29,7 +32,9 @@ const Main = () => {
   return (
     <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none'>
 
-
+      {/* {recipes.map(i =>)} */}
+        
+      
       {/* MAIN IMAGE */}
 
       <div className='background-pizza h-[25%] object-cover relative'>
@@ -37,8 +42,17 @@ const Main = () => {
         <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
           <p className=' logo-font text-white font-semibold text-[40px] opacity-100'>
             CAULIFLOWER PIZZA CRUST
+           
           </p>
         </div>
+
+        {/* {selectedRecipe && (
+          <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
+            <p className='logo-font text-white font-semibold text-[40px] opacity-100'>
+              {selectedRecipe.title}
+            </p>
+          </div>
+        )} */}
 
 
       </div>
@@ -71,6 +85,9 @@ const Main = () => {
         <h2 className=' text-color-primary font-bold text-xl justify-center'>RECIPE INGREDIENTS</h2>
 
         <ul className='pt-5 w-[90%] flex flex-col flex-wrap justify-center items-left  text-gray-600 gap-5 h-[250px] '>
+
+
+
           <li className='flex items-center gap-3 mr-10'>
             <FiCheck className='text-color-primary w-6 h-6' />
             1
@@ -139,7 +156,6 @@ const Main = () => {
         <p className='text-gray-600 w-[70%] text-center'>This recipe was carefully designed and tested by <span className='font-bold'>A Spicy Perspective</span>. Please check out directions at their website.</p>
         <DirectionBtn />
       </div>
-
 
 
     </div >
