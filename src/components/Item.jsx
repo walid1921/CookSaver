@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
 const Item = ({ recipes }) => {
-
-  const [clickedRecipes, setClickedRecipes] = useState(new Array(recipes.length).fill(false));
-
-  const clickHandler = (item) => {
-    const updatedClickedRecipes = [...clickedRecipes];
-    updatedClickedRecipes[item] = !updatedClickedRecipes[item];
-    setClickedRecipes(updatedClickedRecipes);
-  };
-
 
 
   return (
@@ -27,8 +18,8 @@ const Item = ({ recipes }) => {
               <img src={i.imgUrl} alt="" className='h-16 w-16 rounded-full ' />
             </div>
 
-            <div onClick={() => clickHandler(item)}>
-              <h3 className={`${clickedRecipes[item] ? 'text-blue-600' : 'text-color-primary' }  text-md uppercase font-semibold`}>{i.title}</h3>
+            <div >
+              <h3 className='text-color-primary text-md uppercase font-semibold'>{i.title}</h3>
               <p className='text-sm text-color-grey-light-3
             '>{i.source}</p>
             </div>
