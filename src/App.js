@@ -33,35 +33,37 @@ function App() {
 
 
   useEffect(() => {
+    async function fetchRecipes() {
+      setIsLoading(true);
+      setError("")
+  
+      try {
+        const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza&key=${KEY}`);
+  
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+  
+        const data = await response.json();
+  
+        // if (data.Response === 'False') throw new Error("Recipe not found")
+  
+        setRecipes(data.data.recipes);
+        console.log(data.status)
+  
+        setIsLoading(false)
+      } catch (error){
+        console.error("Error fetching data:", error);
+        setError(error.message);
+      } finally{
+        setIsLoading(false)
+      }
+    }
+
     fetchRecipes()
   }, [currentPage])
 
-  async function fetchRecipes() {
-    setIsLoading(true);
-    setError("")
-
-    try {
-      const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza&key=${KEY}`);
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      // if (data.Response === 'False') throw new Error("Recipe not found")
-
-      setRecipes(data.data.recipes);
-      console.log(data.status)
-
-      setIsLoading(false)
-    } catch (error){
-      console.error("Error fetching data:", error);
-      setError(error.message);
-    } finally{
-      setIsLoading(false)
-    }
-  }
+ 
 
 
   return (
