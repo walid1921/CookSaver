@@ -5,6 +5,7 @@ import SearchResult from './components/SearchResult';
 import Main from './components/Main';
 import Pagination from './components/UI/Pagination';
 import NumCharacters from './components/UI/NumCharacters';
+import NoResults from './components/UI/NoResults';
 
 // import recipesData from './assets/recipesData';
 
@@ -15,7 +16,7 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("");
-
+  const [apiCalled, setApiCalled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage  = 8
@@ -39,6 +40,7 @@ function App() {
       setRecipes([]); // Clear recipes if query is empty
       setError("");
       setIsLoading(false);
+      setApiCalled(false);
       return;
     }
 
@@ -55,7 +57,7 @@ function App() {
   
         const data = await response.json();
   
-        // if (data.Response === 'False') throw new Error("Recipe not found")
+        if (data.Response === 'False') throw new Error("Recipe not found")
   
         setRecipes(data.data.recipes);
         console.log(data.status)
@@ -66,6 +68,7 @@ function App() {
         setError(error.message);
       } finally{
         setIsLoading(false)
+        setApiCalled(true); 
       }
     }
 
@@ -83,10 +86,16 @@ function App() {
         <div className='flex flex-col justify-between bg-white mb-[79px] rounded-bl-xl'>
 
         {query.length < 4 && <NumCharacters/>}
-           
-        <SearchResult displayedRecipes={displayedRecipes} isLoading={isLoading} error={error} />
 
-        <Pagination recipes={recipes} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+
+        {(apiCalled && recipes.length > 0) ? (
+          <>
+            <SearchResult displayedRecipes={displayedRecipes} isLoading={isLoading} error={error} />
+            <Pagination recipes={recipes} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+          </>
+        ) : (
+          apiCalled && <NoResults />
+        )}
 
         </div>
         
