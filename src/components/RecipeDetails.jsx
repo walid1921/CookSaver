@@ -5,6 +5,7 @@ import Servings from './Servings';
 import BookmarkContext from './BookmarkContext ';
 
 import { FiBookmark } from "react-icons/fi";
+import { MdArrowBackIos } from "react-icons/md";
 import { TbClockHour3 } from "react-icons/tb";
 import { FiCheck } from "react-icons/fi";
 import Loader from "./UI/Loader";
@@ -81,12 +82,15 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
 
   return (
 
-    <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none bg-white'>
+    <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none bg-color-grey-light-1 rounded-br-xl'>
       {isLoading ? <Loader /> :
         (<>
           <header style={{ backgroundImage: `url(${recipe.image_url})` }} className='h-[25%]  bg-cover bg-no-repeat bg-center object-cover relative'>
 
-            <button className=" border p-3 bg-white" onClick={handleCloseRecipe}>back</button>
+
+            <button className=' rounded-full p-2 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 opacity-75 hover:opacity-100 m-2' onClick={handleCloseRecipe}>
+              <MdArrowBackIos className='fill-white text-white w-4 h-4' />
+            </button>
 
 
             <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
@@ -109,7 +113,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
               </div>
 
 
-              <Servings servings={recipe.servings} 
+              <Servings servings={recipe.servings}
               />
 
               {/* onCountChange={handleTimeChange}  */}

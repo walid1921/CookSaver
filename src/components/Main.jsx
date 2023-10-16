@@ -1,5 +1,7 @@
 // import React, { useState, useContext } from 'react';
 
+import { ImSpoonKnife } from "react-icons/im";
+
 // import BookmarkContext from './BookmarkContext ';
 
 
@@ -24,32 +26,22 @@ const Main = ({ recipes  }) => {
 
 
   return (
-    <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none'>
+    <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none bg-color-grey-light-1 border rounded-br-xl'>
 
       {/* {recipes.map(i =>)} */}
         
       
       {/* MAIN IMAGE */}
 
-      <div className='background-pizza h-[25%] object-cover relative'>
+      <div className='flex items-center justify-center gap-3 h-[40%]'>
 
-        <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
-          <p className=' logo-font text-white font-semibold text-[40px] opacity-100'>
-            CAULIFLOWER PIZZA CRUST
-           
-          </p>
+        <div className='rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 opacity-50'>
+          <a href="/"><ImSpoonKnife className='w-5 h-5 text-white' /></a>
         </div>
-
-        {/* {selectedRecipe && (
-          <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
-            <p className='logo-font text-white font-semibold text-[40px] opacity-100'>
-              {selectedRecipe.title}
-            </p>
-          </div>
-        )} */}
-
-
+        <span className='logo-font text-gray-300 font-semibold text-[30px]'>Have fun!</span>
       </div>
+
+     
 
 
       {/* SMALL NAV  */}
