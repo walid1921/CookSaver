@@ -1,13 +1,7 @@
-import React, { useState, useContext } from 'react';
+// import React, { useState, useContext } from 'react';
 
+// import BookmarkContext from './BookmarkContext ';
 
-import DirectionBtn from "../components/UI/DirectionBtn"
-import Servings from './Servings';
-import BookmarkContext from './BookmarkContext ';
-
-import { FiBookmark } from "react-icons/fi";
-import { TbClockHour3 } from "react-icons/tb";
-import { FiCheck } from "react-icons/fi";
 
 
 
@@ -15,18 +9,18 @@ const Main = ({ recipes  }) => {
 
 
 
-  const { setBookmarkCount } = useContext(BookmarkContext);
+  // const { setBookmarkCount } = useContext(BookmarkContext);
 
-  const [time, setTime] = useState(120);
-  const handleTimeChange = (value) => {
-    setTime((prevTime) => Math.max(prevTime + value, 30));
-  }
+  // const [time, setTime] = useState(120);
+  // const handleTimeChange = (value) => {
+  //   setTime((prevTime) => Math.max(prevTime + value, 30));
+  // }
 
-  const [bookmarked, setBookmarked] = useState(false)
-  const handleBookmarked = () => {
-    setBookmarked(!bookmarked);
-    setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
-  };
+  // const [bookmarked, setBookmarked] = useState(false)
+  // const handleBookmarked = () => {
+  //   setBookmarked(!bookmarked);
+  //   setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
+  // };
 
 
   return (
