@@ -4,12 +4,14 @@ import Navbar from './components/Navbar';
 import SearchResult from './components/SearchResult';
 import Main from './components/Main';
 import Pagination from './components/UI/Pagination';
+import NumCharacters from './components/UI/NumCharacters';
 
 // import recipesData from './assets/recipesData';
 
 const KEY = 'a95fb5cd-2bcd-4075-802d-2fe6ce1c7e38'
 
 function App() {
+  const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("");
@@ -33,12 +35,19 @@ function App() {
 
 
   useEffect(() => {
+    if (query.length < 4) {
+      setRecipes([]); // Clear recipes if query is empty
+      setError("");
+      setIsLoading(false);
+      return;
+    }
+
     async function fetchRecipes() {
       setIsLoading(true);
       setError("")
   
       try {
-        const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza&key=${KEY}`);
+        const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}&key=${KEY}`);
   
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -61,7 +70,7 @@ function App() {
     }
 
     fetchRecipes()
-  }, [currentPage])
+  }, [query, currentPage])
 
  
 
@@ -69,14 +78,15 @@ function App() {
   return (
     <div className='bg-gradient-to-br from-color-grad-1 to bg-color-grad-2'>
       <div className='container grid grid-cols-3 grid-rows-1'>
-        <Navbar />
+        <Navbar query={query} setQuery={setQuery} />
 
-        <div className='flex flex-col justify-between bg-white mb-20 rounded-bl-xl'>
-          
-          
-          <SearchResult displayedRecipes={displayedRecipes} isLoading={isLoading} error={error} />
+        <div className='flex flex-col justify-between bg-white mb-[79px] rounded-bl-xl'>
 
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+        {query.length < 4 && <NumCharacters/>}
+           
+        <SearchResult displayedRecipes={displayedRecipes} isLoading={isLoading} error={error} />
+
+        <Pagination recipes={recipes} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
 
         </div>
         

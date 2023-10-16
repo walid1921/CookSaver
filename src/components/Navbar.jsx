@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import Button from './UI/Button';
 import AddRecipe from './UI/AddRecipe';
 import BookmarkContext from './BookmarkContext ';
 
@@ -9,9 +8,10 @@ import pizza1 from '../assets/img/pizza1.jpg'
 import { FiBookmark } from "react-icons/fi";
 import { FiEdit } from "react-icons/fi";
 import { ImSpoonKnife } from "react-icons/im";
+import SearchBar from './SearchBar';
 
 
-const Navbar = () => {
+const Navbar = ({ query, setQuery }) => {
   const { bookmarkCount } = useContext(BookmarkContext);
 
   const [isOpen, setIsOpen] = useState(false)
@@ -23,19 +23,19 @@ const Navbar = () => {
 
   const menuRef = useRef(null)
 
-  const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setIsOpen(false)
-    }
-  }
+  // const handleClickOutside = (event) => {
+  //   if (menuRef.current && !menuRef.current.contains(event.target)) {
+  //     setIsOpen(false)
+  //   }
+  // }
 
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
 
 
 
@@ -56,11 +56,7 @@ const Navbar = () => {
       </div>
 
 
-      {/* Search */}
-      <div className='bg-white rounded-full flex drop-shadow-md'>
-        <input type="text" placeholder='Search Your Recipe...' className=' rounded-l-full px-8 outline-none text-gray-500' />
-        <Button />
-      </div>
+      <SearchBar query={query} setQuery={setQuery} />
 
 
       <div className='flex items-center gap-10 mr-5'>
