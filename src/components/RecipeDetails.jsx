@@ -16,10 +16,10 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
 
   const { setBookmarkCount } = useContext(BookmarkContext);
 
-  const [time, setTime] = useState(120);
-  const handleTimeChange = (value) => {
-    setTime((prevTime) => Math.max(prevTime + value, 30));
-  }
+  // const [time, setTime] = useState(120);
+  // const handleTimeChange = (value) => {
+  //   setTime((prevTime) => Math.max(prevTime + value, 30));
+  // }
 
   const [bookmarked, setBookmarked] = useState(false)
   const handleBookmarked = () => {
@@ -76,7 +76,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
 
     fetchRecipeDetails();
 
-  }, [selectedId]) // we wrote it in "Dependency array" because as the selected Id changes then the effect will be executed again, so It's Important
+  }, [KEY, selectedId]) // we wrote it in "Dependency array" because as the selected Id changes then the effect will be executed again, so It's Important
 
 
   return (
@@ -109,7 +109,10 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
               </div>
 
 
-              <Servings servings={recipe.servings} onCountChange={handleTimeChange} />
+              <Servings servings={recipe.servings} 
+              />
+
+              {/* onCountChange={handleTimeChange}  */}
 
 
               <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75' onClick={handleBookmarked}>
