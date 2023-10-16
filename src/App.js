@@ -6,37 +6,52 @@ import Main from './components/Main';
 import Pagination from './components/UI/Pagination';
 import NumCharacters from './components/UI/NumCharacters';
 import NoResults from './components/UI/NoResults';
-
+import RecipeDetails from './components/RecipeDetails';
 // import recipesData from './assets/recipesData';
+
+
+// Fetch (Get) Async/Await
+// We use Async/Await instead of method chaining for more linear-looking code
+// When using API we have to see how we are going to use it. How it gives result in the end if (an Object or an Array)
+
 
 const KEY = 'a95fb5cd-2bcd-4075-802d-2fe6ce1c7e38'
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("");
-  const [apiCalled, setApiCalled] = useState(false);
+  
+  const [query, setQuery] = useState("pizza"); // its for searchBar (we have to call query in the fetch api ), it must be in the App component because it's bring us info what user typed
+  const [recipes, setRecipes] = useState([]); // to hold the fetched data (it can be an object {} or an Array []), it must be in the App component because its the  data we are going to store it in this array
+  const [isLoading, setIsLoading] = useState(false) // Handle Spinner or Loading message
+  const [error, setError] = useState(""); // Handle Error message
+  const [apiCalled, setApiCalled] = useState(false); // To handle if there is no results
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [selectedId, setSelectedId] = useState(null) // id Exp : "5ed6604591c37cdc054bcd09"
+
+  //! Handling Pagination
   const itemsPerPage  = 8
   const totalItems = recipes.length;
-
   const totalPages = Math.ceil(totalItems / itemsPerPage); // Calculate total pages
-
-  const onPageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  }
-
-   // Slice the recipes based on currentPage and itemsPerPage
-   const displayedRecipes = recipes.slice(
+  const onPageChange = (pageNumber) => {setCurrentPage(pageNumber)}
+  const displayedRecipes = recipes.slice( // Slice the recipes based on currentPage and itemsPerPage
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  //! Handling Selecting
+  const  handleSelectedRecipe  = (id) => {
+    setSelectedId((selectedId) => (id === selectedId ? null : id)) // here there is a feature that if the Recipe is clicked again it closes
+  }
 
-  useEffect(() => {
-    if (query.length < 4) {
+  const handleCloseRecipe = () => {
+    setSelectedId(null)
+  }
+
+    
+  useEffect(() => { // We used useEffect to avoid any infinite loop can happen and also it has a good property that it shows our component content before the data is fetched
+
+    
+    if (query.length < 4) { // this when we have searchBar functionality, it means It doesn't run anything if nothing is typed in
       setRecipes([]); // Clear recipes if query is empty
       setError("");
       setIsLoading(false);
@@ -44,36 +59,58 @@ function App() {
       return;
     }
 
+    //! fetchData function
     async function fetchRecipes() {
-      setIsLoading(true);
-      setError("")
-  
-      try {
+        
+      try { // we use a try block to catch any potential errors.
+
+        setIsLoading(true);
+        setError("")
+
+        // We use await with fetch(url) to make the API request. This returns a response object.
         const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}&key=${KEY}`);
-  
+
+        // API Documentation https://www.omdbapi.com/
+        console.log("Data u got", response)
+
+        // Check if the response status is OK (200-299)(which signifies a successful response). If not, we throw a custom error.
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-  
+        
+        // If the response is successful, we use await again to parse the response body as JSON.
         const data = await response.json();
-  
-        if (data.Response === 'False') throw new Error("Recipe not found")
-  
-        setRecipes(data.data.recipes);
+
+        
+        if (data.results === 0){ // console.log(data)
+          throw new Error("Recipe not found");
+        }
+
+        // If all goes well, we return the parsed data.
+        setRecipes(data.data.recipes); // change 'data.recipes' to the actual result from the API, u can check that by using console.log
         console.log(data.status)
+        console.log(data.data.recipes)
+        
   
         setIsLoading(false)
+
+        // If an error occurs at any point in the try block, it will be caught in the catch block.
+        // In the catch block, we log the error and rethrow it. This allows the error to be caught by the calling function (or component) for further handling.
       } catch (error){
-        console.error("Error fetching data:", error);
+        console.error(error.message);
         setError(error.message);
+
       } finally{
         setIsLoading(false)
         setApiCalled(true); 
       }
     }
 
-    fetchRecipes()
+    fetchRecipes();  // Call fetchData when the component mounts
+
   }, [query, currentPage])
+  // Empty "Dependency array" means this effect runs once
+  // in case we wanted to rerender the useEffect function again we had to pass this param so it will render again when something was typed in the searchBar, in this case we updated pages or search
 
  
 
@@ -87,19 +124,18 @@ function App() {
 
         {query.length < 4 && <NumCharacters/>}
 
-
-        {(apiCalled && recipes.length > 0) ? (
-          <>
-            <SearchResult displayedRecipes={displayedRecipes} isLoading={isLoading} error={error} />
+        {(apiCalled && recipes.length > 0) ? 
+        (<>
+            <SearchResult displayedRecipes={displayedRecipes} isLoading={isLoading} error={error} handleSelectedRecipe={handleSelectedRecipe} />
             <Pagination recipes={recipes} currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
           </>
-        ) : (
-          apiCalled && <NoResults />
-        )}
+        ) : 
+
+        (apiCalled && <NoResults />)}
 
         </div>
-        
-        <Main/>
+     
+        {selectedId ? <RecipeDetails selectedId={selectedId} handleCloseRecipe={handleCloseRecipe} KEY={KEY} /> : <Main/>}
       </div>
     </div>
   );

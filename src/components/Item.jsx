@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Item = ({ displayedRecipes }) => {
+const Item = ({ displayedRecipes, handleSelectedRecipe }) => {
 
   return (
 
@@ -10,6 +10,7 @@ const Item = ({ displayedRecipes }) => {
         displayedRecipes.map((recipe) =>
           <li className='flex items-center gap-4 pt-6 pb-4 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150'
             key={recipe.id}
+            onClick={() => handleSelectedRecipe(recipe.id)}
           >
 
 

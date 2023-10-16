@@ -60,7 +60,7 @@ const Main = ({ recipes  }) => {
 
       {/* SMALL NAV  */}
 
-      <div className='flex items-center justify-around py-5 bg-color-grey-light-1'>
+      {/* <div className='flex items-center justify-around py-5 bg-color-grey-light-1'>
 
         <div className='flex items-center font-semibold'>
           <TbClockHour3 className='text-color-primary w-6 h-6 mr-3' />
@@ -76,10 +76,10 @@ const Main = ({ recipes  }) => {
           <FiBookmark className={`${bookmarked ? 'fill-white text-white w-6 h-6' : 'text-white w-6 h-6'}`} />
         </div>
 
-      </div>
+      </div> */}
 
 
-      {/* RECIPE INGREDIENTS  */}
+      {/* RECIPE INGREDIENTS 
 
       <div className='center flex-col py-16 bg-color-grey-light-2 w-full'>
         <h2 className=' text-color-primary font-bold text-xl justify-center'>RECIPE INGREDIENTS</h2>
@@ -147,15 +147,15 @@ const Main = ({ recipes  }) => {
             Fresh cilantro to taste
           </li>
         </ul>
-      </div>
+      </div> */}
 
-      {/* HOW TO COOK IT  */}
+      {/* HOW TO COOK IT 
 
       <div className='center flex-col py-16 bg-color-grey-light-1 w-full gap-5 rounded-br-xl'>
         <h2 className=' text-color-primary  font-bold text-xl justify-center'>HOW TO COOK IT</h2>
         <p className='text-gray-600 w-[70%] text-center'>This recipe was carefully designed and tested by <span className='font-bold'>A Spicy Perspective</span>. Please check out directions at their website.</p>
         <DirectionBtn />
-      </div>
+      </div> */}
 
 
     </div >
