@@ -12,6 +12,19 @@ import Loader from "./UI/Loader";
 
 function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
 
+  // const { setBookmarkCount } = useContext(BookmarkContext);
+
+  // const [time, setTime] = useState(120);
+  // const handleTimeChange = (value) => {
+  //   setTime((prevTime) => Math.max(prevTime + value, 30));
+  // }
+
+  // const [bookmarked, setBookmarked] = useState(false)
+  // const handleBookmarked = () => {
+  //   setBookmarked(!bookmarked);
+  //   setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
+  // };
+
   const [recipe, setRecipe] = useState({})
   const [isLoading, setIsLoading] = useState(false)
 
@@ -28,16 +41,28 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
     setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
   };
 
+  const ingredients = recipe && recipe.ingredients
+    ? recipe.ingredients.map((ing, i) => <li className='flex items-center gap-2 mr-10  ' key={i}>
+      <FiCheck className='text-color-primary w-6 h-6' />
+      <span>{ing.quantity}{ing.unit}</span>
+      <span>{ing.description}</span>
+
+    </li>)
+    : null;
+
+
+
 
   useEffect(() => {
+
+    // No error handling (because mostly it gives the result like we are sure) so we add only loading 
     async function fetchRecipeDetails() {
 
       try {
         setIsLoading(true);
-        // setError("")
+
 
         const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${selectedId}?key=${KEY}`);
-
 
         console.log("Data u got", response)
 
@@ -52,26 +77,14 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
         console.log(data.data.recipe)
 
 
-        // if (data.results === 0){ 
-        //   throw new Error("Recipe not found");
-        // }
-
-
-        // setRecipes(data.data.recipes);
-        // console.log(data.status)
-        // console.log(data.data.recipes)
-
-
         setIsLoading(false)
 
 
       } catch (error) {
         console.error(error.message);
-        // setError(error.message);
 
       } finally {
         setIsLoading(false)
-        // setApiCalled(true); 
       }
     }
 
@@ -88,8 +101,8 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
           <header style={{ backgroundImage: `url(${recipe.image_url})` }} className='h-[25%]  bg-cover bg-no-repeat bg-center object-cover relative'>
 
 
-            <button className=' rounded-full p-2 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 opacity-75 hover:opacity-100 m-2' onClick={handleCloseRecipe}>
-              <MdArrowBackIos className='fill-white text-white w-4 h-4' />
+            <button className='rounded-full p-2 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 opacity-75 hover:opacity-100 m-2' onClick={handleCloseRecipe}>
+              <MdArrowBackIos className='text-white w-7 h-7 ml-2' />
             </button>
 
 
@@ -104,6 +117,9 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
 
 
           <section>
+
+            {/* SMALL NAV  */}
+
             <div className='flex items-center justify-around py-5 bg-color-grey-light-1'>
 
               <div className='flex items-center font-semibold'>
@@ -127,22 +143,18 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
 
             {/* RECIPE INGREDIENTS  */}
 
-            <div className='center flex-col py-16 bg-color-grey-light-2 w-full'>
+            <div className='center flex-col py-16 bg-color-grey-light-2 w-full h-full'>
               <h2 className=' text-color-primary font-bold text-xl justify-center'>RECIPE INGREDIENTS</h2>
 
-              <ul className='pt-5 w-[90%] flex flex-col flex-wrap justify-center items-left  text-gray-600 gap-5 h-[250px] '>
+              <ul className='pt-10 w-[90%] h-[250px]  flex  flex-wrap  justify-between items-left  text-gray-600 gap-5 overflow-y-scroll custom-scrollbar'>
 
-
-
-                {/* {recipe.map((rec) => )} */}
-                <li className='flex items-center gap-3 mr-10'>
-                  <FiCheck className='text-color-primary w-6 h-6' />
-                  1
-                  medium head cauliflower cut into florets
-                </li>
-
+                {/* ingredients is saved on the top to make a checking condition because it has an issue with map() 
+                we needed to make sure that the data we're trying to map over is defined before we try to use the map function. 
+                */}
+                {ingredients}
 
               </ul>
+
             </div>
 
             {/* HOW TO COOK IT  */}

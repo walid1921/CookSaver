@@ -41,8 +41,6 @@ const Navbar = ({ query, setQuery }) => {
 
 
 
-
-
   return (
     <div className='col-span-3  w-full center-between text-white bg-color-grey-light-1  h-28  z-10 rounded-t-xl px-10 mt-20 relative'>
 
@@ -50,7 +48,7 @@ const Navbar = ({ query, setQuery }) => {
       <div className='flex items-center gap-3'>
 
         <div className='rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
-          <a href="/"><ImSpoonKnife className='w-7 h-7 text-white' /></a>
+          <a href="/"><ImSpoonKnife className='w-7 h-7 text-white cursor-pointer' /></a>
         </div>
         <span className='logo-font text-gray-500 font-semibold text-[40px]'>Forkify</span>
       </div>
