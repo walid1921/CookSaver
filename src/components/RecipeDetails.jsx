@@ -10,23 +10,7 @@ import { TbClockHour3 } from "react-icons/tb";
 import { FiCheck } from "react-icons/fi";
 import Loader from "./UI/Loader";
 
-function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
-
-  // const { setBookmarkCount } = useContext(BookmarkContext);
-
-  // const [time, setTime] = useState(120);
-  // const handleTimeChange = (value) => {
-  //   setTime((prevTime) => Math.max(prevTime + value, 30));
-  // }
-
-  // const [bookmarked, setBookmarked] = useState(false)
-  // const handleBookmarked = () => {
-  //   setBookmarked(!bookmarked);
-  //   setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
-  // };
-
-  const [recipe, setRecipe] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
+function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedRecipes }) {
 
   const { setBookmarkCount } = useContext(BookmarkContext);
 
@@ -35,11 +19,14 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
   //   setTime((prevTime) => Math.max(prevTime + value, 30));
   // }
 
+
+  const [recipe, setRecipe] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+
+
   const [bookmarked, setBookmarked] = useState(false)
-  const handleBookmarked = () => {
-    setBookmarked(!bookmarked);
-    setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
-  };
+
+
 
   const ingredients = recipe && recipe.ingredients
     ? recipe.ingredients.map((ing, i) => <li className='flex items-center gap-2 mr-10  ' key={i}>
@@ -50,10 +37,36 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
     </li>)
     : null;
 
+  const isSaved = savedRecipes.map(recipe => recipe.id).includes(selectedId)
+
+
+
+
+  // here we created new object and then to lift it up through handleSaved() as a prop to store it in a new array which is savedRecipe []
+  const onSaveRecipe = () => {
+
+    const newSavedRecipe = {
+      id: selectedId,
+      title: recipe.title,
+      image_url: recipe.image_url,
+      publisher: recipe.publisher
+      // u can write the rest of params to display it later 
+    }
+    handleSaved(newSavedRecipe)
+
+
+    setBookmarked(!bookmarked);
+
+    // this for updating the savedRecipes Num bu useContext()
+    setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
+
+  }
+
 
 
 
   useEffect(() => {
+    setBookmarked(false);
 
     // No error handling (because mostly it gives the result like we are sure) so we add only loading 
     async function fetchRecipeDetails() {
@@ -135,9 +148,9 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY }) {
               {/* onCountChange={handleTimeChange}  */}
 
 
-              <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75' onClick={handleBookmarked}>
+              {!isSaved ? <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75' onClick={onSaveRecipe}>
                 <FiBookmark className={`${bookmarked ? 'fill-white text-white w-6 h-6' : 'text-white w-6 h-6'}`} />
-              </div>
+              </div> : <p>saved</p>}
 
             </div>
 

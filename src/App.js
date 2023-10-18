@@ -7,6 +7,7 @@ import Pagination from './components/UI/Pagination';
 import NumCharacters from './components/UI/NumCharacters';
 import NoResults from './components/UI/NoResults';
 import RecipeDetails from './components/RecipeDetails';
+import saved from './assets/savedRecipes';
 // import recipesData from './assets/recipesData';
 
 
@@ -19,7 +20,7 @@ const KEY = 'a95fb5cd-2bcd-4075-802d-2fe6ce1c7e38'
 
 function App() {
   
-  const [query, setQuery] = useState(""); // its for searchBar (we have to call query in the fetch api ), it must be in the App component because it's bring us info what user typed
+  const [query, setQuery] = useState("pasta"); // its for searchBar (we have to call query in the fetch api ), it must be in the App component because it's bring us info what user typed
   const [recipes, setRecipes] = useState([]); // to hold the fetched data (it can be an object {} or an Array []), it must be in the App component because its the  data we are going to store it in this array
   const [isLoading, setIsLoading] = useState(false) // Handle Spinner or Loading message
   const [error, setError] = useState(""); // Handle Error message
@@ -27,6 +28,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [selectedId, setSelectedId] = useState(null) // id Exp : "5ed6604591c37cdc054bcd09"
+
+  const [savedRecipes, setSavedRecipes] = useState([])
 
   //! Handling Pagination
   const itemsPerPage  = 8
@@ -46,6 +49,11 @@ function App() {
   const handleCloseRecipe = () => {
     setSelectedId(null)
   }
+
+   //! Handling BookMark
+  function handleSaved (savedRecipes) {
+    setSavedRecipes(save => [...save, savedRecipes])
+    }
 
     
   useEffect(() => { // We used useEffect to avoid any infinite loop can happen and also it has a good property that it shows our component content before the data is fetched
@@ -118,7 +126,7 @@ function App() {
   return (
     <div className='bg-gradient-to-br from-color-grad-1 to bg-color-grad-2'>
       <div className='container grid grid-cols-3 grid-rows-1'>
-        <Navbar query={query} setQuery={setQuery} />
+        <Navbar query={query} setQuery={setQuery} savedRecipes={savedRecipes} />
 
         <div className='flex flex-col justify-between bg-white mb-[79px] rounded-bl-xl'>
 
@@ -135,7 +143,7 @@ function App() {
 
         </div>
      
-        {selectedId ? <RecipeDetails selectedId={selectedId} handleCloseRecipe={handleCloseRecipe} KEY={KEY} /> : <Main/>}
+        {selectedId ? <RecipeDetails selectedId={selectedId} handleCloseRecipe={handleCloseRecipe} KEY={KEY} handleSaved={handleSaved} savedRecipes={savedRecipes} /> : <Main/>}
       </div>
     </div>
   );

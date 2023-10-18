@@ -11,7 +11,8 @@ import { ImSpoonKnife } from "react-icons/im";
 import SearchBar from './SearchBar';
 
 
-const Navbar = ({ query, setQuery }) => {
+
+const Navbar = ({ query, setQuery, savedRecipes }) => {
   const { bookmarkCount } = useContext(BookmarkContext);
 
   const [isOpen, setIsOpen] = useState(false)
@@ -69,8 +70,11 @@ const Navbar = ({ query, setQuery }) => {
         {/* BOOKMARK  */}
         <div >
           <div className='relative cursor-pointer' onClick={handleOpen} ref={menuRef}>
-            <FiBookmark className=' text-color-primary w-6 h-6 ' />
-            <span className=' bg-gradient-to-br from-color-primary to-color-grad-1 text-white text-xs font-bold border border-color-grad-1 rounded-full px-1  absolute -top-2 -right-1'>{bookmarkCount}</span>
+            <FiBookmark
+              className=' text-color-primary w-6 h-6 ' />
+
+            {/* Here  I've put a condition that don't show the span if there is no savedRecipe  */}
+            {bookmarkCount === 0 ? '' : <span className=' bg-gradient-to-br from-color-primary to-color-grad-1 text-white text-xs font-bold border border-color-grad-1 rounded-full px-1  absolute -top-2 -right-1'>{bookmarkCount}</span>}
 
           </div>
 
@@ -78,15 +82,38 @@ const Navbar = ({ query, setQuery }) => {
 
           <div className={`${isOpen ? 'flex' : 'hidden'} flex-col backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-28 right-0 rounded-bl-xl`} >
 
+            {savedRecipes.map(saved => (
+              <a
+                href={saved.source_url}
+                key={saved.id}
+                className='flex items-center gap-4 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
+                <img
+                  src={saved.image_url}
+                  alt={saved.title}
+                  className='h-12 w-12 rounded-full' />
+                <div>
+                  <h3 className='text-sm text-color-primary uppercase font-semibold'>{saved.title}</h3>
+                  <p className='text-xs text-gray-600
+            '>{saved.publisher}</p>
+                </div>
+              </a>
 
-            <li className='flex items-center gap-4 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
+            ))}
+
+
+
+
+
+
+
+
+            {/* <li className=''>
               <div >
-                <img src={pizza1} alt="" className='h-12 w-12 rounded-full ' />
+                <img src={pizza1} alt="" className=' ' />
               </div>
               <div>
-                <h3 className='text-sm text-color-primary uppercase font-semibold'>California Pizza</h3>
-                <p className='text-xs text-gray-600
-            '>Lorem, ipsum dolor </p>
+                <h3 >California Pizza</h3>
+                <p >Lorem, ipsum dolor </p>
               </div>
             </li>
 
@@ -99,7 +126,7 @@ const Navbar = ({ query, setQuery }) => {
                 <p className='text-xs text-gray-600
             '>Lorem, ipsum dolor </p>
               </div>
-            </li>
+            </li> */}
 
           </div>
         </div>
