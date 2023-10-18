@@ -2,9 +2,6 @@ import React, { useState, useRef, useContext } from 'react';
 import AddRecipe from './UI/AddRecipe';
 import BookmarkContext from './BookmarkContext ';
 
-
-import pizza1 from '../assets/img/pizza1.jpg'
-
 import { FiBookmark } from "react-icons/fi";
 import { FiEdit } from "react-icons/fi";
 import { ImSpoonKnife } from "react-icons/im";
