@@ -12,7 +12,9 @@ import SearchBar from './SearchBar';
 
 
 
-const Navbar = ({ query, setQuery, savedRecipes }) => {
+const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
+
+  // this one is used for updating the number of saved recipes
   const { bookmarkCount } = useContext(BookmarkContext);
 
   const [isOpen, setIsOpen] = useState(false)
@@ -80,13 +82,13 @@ const Navbar = ({ query, setQuery, savedRecipes }) => {
 
           {/* small nav  */}
 
-          <div className={`${isOpen ? 'flex' : 'hidden'} flex-col backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-28 right-0 rounded-bl-xl`} >
+          <div className={`${isOpen ? 'flex' : 'hidden'} flex-col backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-28 right-0 `} >
 
             {savedRecipes.map(saved => (
               <a
                 href={saved.source_url}
                 key={saved.id}
-                className='flex items-center gap-4 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
+                className='flex items-center gap-6 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
                 <img
                   src={saved.image_url}
                   alt={saved.title}
@@ -96,6 +98,7 @@ const Navbar = ({ query, setQuery, savedRecipes }) => {
                   <p className='text-xs text-gray-600
             '>{saved.publisher}</p>
                 </div>
+                <span onClick={() => handleDeleteSaved(saved.id)} className='text-red-600 cursor-pointer'>X</span>
               </a>
 
             ))}

@@ -57,7 +57,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
     setBookmarked(!bookmarked);
 
-    // this for updating the savedRecipes Num bu useContext()
+    // this for updating the savedRecipes Num by useContext()
     setBookmarkCount((prevCount) => bookmarked ? prevCount - 1 : prevCount + 1);
 
   }
@@ -105,6 +105,21 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
   }, [KEY, selectedId]) // we wrote it in "Dependency array" because as the selected Id changes then the effect will be executed again, so It's Important
 
+  // ! To change the title of the Page 
+
+
+  useEffect(() => {
+    if (!recipe.title) return;
+    document.title = `Recipe l ${recipe.title}`;
+
+    // we need cleanUp function when the side effect keep running, it means in that case even when we closed the RecipeDetails window but the title still there
+    return function () {
+      document.title = "Forkify (walid)"
+      // console.log(`Cleaned up ${recipe.title}`)
+    }
+
+  }, [recipe.title]) // we called it here because in the beginning before the fetch is called the recipe data was an empty object. so our effect is listening to the title to change  so when it does change the our effect is executed again
+
 
   return (
 
@@ -148,9 +163,20 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
               {/* onCountChange={handleTimeChange}  */}
 
 
-              {!isSaved ? <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75' onClick={onSaveRecipe}>
-                <FiBookmark className={`${bookmarked ? 'fill-white text-white w-6 h-6' : 'text-white w-6 h-6'}`} />
-              </div> : <p>saved</p>}
+              {!isSaved
+
+                ?
+
+                <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75' onClick={onSaveRecipe}>
+                  <FiBookmark className=' text-white w-6 h-6' />
+                </div>
+
+                :
+
+                <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
+                  <FiBookmark className='fill-white text-white w-6 h-6' />
+                </div>
+              }
 
             </div>
 
