@@ -1,8 +1,8 @@
 // import React, { useState } from 'react';
 
 import { HiUserGroup } from "react-icons/hi";
-import { FiMinusCircle } from "react-icons/fi";
-import { FiPlusCircle } from "react-icons/fi";
+// import { FiMinusCircle } from "react-icons/fi";
+// import { FiPlusCircle } from "react-icons/fi";
 
 const Servings = ({onCountChange, servings}) => {
 
@@ -28,9 +28,9 @@ const Servings = ({onCountChange, servings}) => {
         </span>
       <p className='select-none'>SERVICES</p>
 
-      <FiMinusCircle className='ml-4 w-5 h-5 text-color-primary hover:text-gray-600 transition-all ease-in duration-150 cursor-pointer '  />
+      {/* <FiMinusCircle className='ml-4 w-5 h-5 text-color-primary hover:text-gray-600 transition-all ease-in duration-150 cursor-pointer '  /> */}
       {/* onClick={handleDecrement} */}
-      <FiPlusCircle className='mx-2 w-5 h-5 text-color-primary hover:text-gray-600 transition-all ease-in duration-150 cursor-pointer'  />
+      {/* <FiPlusCircle className='mx-2 w-5 h-5 text-color-primary hover:text-gray-600 transition-all ease-in duration-150 cursor-pointer'  /> */}
       {/* onClick={handleIncrement} */}
     </div>
   );
