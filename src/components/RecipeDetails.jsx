@@ -77,7 +77,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
         const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${selectedId}?key=${KEY}`);
 
-        console.log("Data u got", response)
+        // console.log("Data u got", response)
 
 
         if (!response.ok) {
@@ -87,7 +87,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
         const data = await response.json();
 
         setRecipe(data.data.recipe)
-        console.log(data.data.recipe)
+        // console.log(data.data.recipe)
 
 
         setIsLoading(false)
@@ -107,7 +107,6 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
   // ! To change the title of the Page 
 
-
   useEffect(() => {
     if (!recipe.title) return;
     document.title = `Recipe l ${recipe.title}`;
@@ -119,6 +118,20 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
     }
 
   }, [recipe.title]) // we called it here because in the beginning before the fetch is called the recipe data was an empty object. so our effect is listening to the title to change  so when it does change the our effect is executed again
+
+   //! Handling keypress event 
+   useEffect(() => {
+    function escape (e){
+      if (e.code === 'Escape') {
+        handleCloseRecipe();
+    }}
+    document.addEventListener('keydown', escape)
+
+    // Always remove the event listener when u use keypress
+    return function () {
+      document.removeEventListener('keydown', escape)
+    }
+  }, [handleCloseRecipe])
 
 
   return (

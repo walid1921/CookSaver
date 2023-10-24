@@ -97,7 +97,7 @@ function App() {
         const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${query}&key=${KEY}`, {signal : controller.signal});
 
         // API Documentation https://www.omdbapi.com/
-        console.log("Data u got", response)
+        // console.log("Data u got", response)
 
         // Check if the response status is OK (200-299)(which signifies a successful response). If not, we throw a custom error.
         if (!response.ok) {
@@ -114,8 +114,8 @@ function App() {
 
         // If all goes well, we return the parsed data.
         setRecipes(data.data.recipes); // change 'data.recipes' to the actual result from the API, u can check that by using console.log
-        console.log(data.status)
-        console.log(data.data.recipes)
+        // console.log(data.status)
+        // console.log(data.data.recipes)
         
   
         setIsLoading(false);
@@ -124,11 +124,11 @@ function App() {
         // If an error occurs at any point in the try block, it will be caught in the catch block.
         // In the catch block, we log the error and rethrow it. This allows the error to be caught by the calling function (or component) for further handling.
       } catch (error){
-        console.error(error.message);
-
+        
         // this condition is just to stop showing the error if its called AbortError because it from the cleanUp function 
         if(error.name !== "AbortError") {
           setError(error.message);
+          console.error(error.message);
         }
 
       } finally{
@@ -136,6 +136,8 @@ function App() {
         setApiCalled(true); 
       }
     }
+
+    handleCloseRecipe() // close RecipeDetails before a new fetching
 
     fetchRecipes();  // Call fetchData when the component mounts
 
