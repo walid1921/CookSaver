@@ -65,8 +65,8 @@ function App() {
     setBookmarkCount((prevCount) =>  prevCount - 1 );
 
    }
-
-    
+   
+   
   useEffect(() => { // We used useEffect to avoid any infinite loop can happen and also it has a good property that it shows our component content before the data is fetched
 
     // This u can do it in the end it just about no more racing and  stopping Unnecessary data been fetched too many times when we write any letter on the search bar. its not necessary to do it in the RecipeDetails fetch because we are sure there is no racing data, just one data from one Id

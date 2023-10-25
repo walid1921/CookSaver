@@ -119,12 +119,13 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
   }, [recipe.title]) // we called it here because in the beginning before the fetch is called the recipe data was an empty object. so our effect is listening to the title to change  so when it does change the our effect is executed again
 
-   //! Handling keypress event 
-   useEffect(() => {
-    function escape (e){
+  //! Handling keypress event 
+  useEffect(() => {
+    function escape(e) {
       if (e.code === 'Escape') {
         handleCloseRecipe();
-    }}
+      }
+    }
     document.addEventListener('keydown', escape)
 
     // Always remove the event listener when u use keypress
