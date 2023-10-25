@@ -8,6 +8,7 @@ import NumCharacters from './components/UI/NumCharacters';
 import NoResults from './components/UI/NoResults';
 import RecipeDetails from './components/RecipeDetails';
 import BookmarkContext from './components/BookmarkContext ';
+import useLocalStorageState from "./components/useLocalStorageState";
 
 
 // import recipesData from './assets/recipesData';
@@ -31,9 +32,12 @@ function App() {
 
   const [selectedId, setSelectedId] = useState(null) // id Exp : "5ed6604591c37cdc054bcd09"
 
-  const [savedRecipes, setSavedRecipes] = useState([])
+  const [savedRecipes, setSavedRecipes] = useLocalStorageState([], 'saved'); // we have created this hook which is dynamic u can use anywhere for local storage
+
 
   const { setBookmarkCount } = useContext(BookmarkContext);
+
+  
 
   //! Handling Pagination
   const itemsPerPage  = 8
