@@ -3,29 +3,22 @@ import { useEffect, useState, useContext } from "react";
 import DirectionBtn from "../components/UI/DirectionBtn"
 import Servings from './Servings';
 import BookmarkContext from './BookmarkContext ';
+import Loader from "./UI/Loader";
+import useKey from "./useKey";
 
 import { FiBookmark } from "react-icons/fi";
 import { MdArrowBackIos } from "react-icons/md";
 import { TbClockHour3 } from "react-icons/tb";
 import { FiCheck } from "react-icons/fi";
-import Loader from "./UI/Loader";
+
 
 function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedRecipes }) {
 
-  const { setBookmarkCount } = useContext(BookmarkContext);
-
-  // const [time, setTime] = useState(120);
-  // const handleTimeChange = (value) => {
-  //   setTime((prevTime) => Math.max(prevTime + value, 30));
-  // }
-
-
   const [recipe, setRecipe] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-
-
   const [bookmarked, setBookmarked] = useState(false)
 
+  const { setBookmarkCount } = useContext(BookmarkContext);
 
 
   const ingredients = recipe && recipe.ingredients
@@ -54,7 +47,6 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
     }
     handleSaved(newSavedRecipe)
 
-
     setBookmarked(!bookmarked);
 
     // this for updating the savedRecipes Num by useContext()
@@ -64,7 +56,8 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
 
 
-
+  //! fetching data by ID
+  
   useEffect(() => {
     setBookmarked(false);
 
@@ -120,19 +113,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
   }, [recipe.title]) // we called it here because in the beginning before the fetch is called the recipe data was an empty object. so our effect is listening to the title to change  so when it does change the our effect is executed again
 
   //! Handling keypress event 
-  useEffect(() => {
-    function escape(e) {
-      if (e.code === 'Escape') {
-        handleCloseRecipe();
-      }
-    }
-    document.addEventListener('keydown', escape)
-
-    // Always remove the event listener when u use keypress
-    return function () {
-      document.removeEventListener('keydown', escape)
-    }
-  }, [handleCloseRecipe])
+  useKey('Escape', handleCloseRecipe)
 
 
   return (
