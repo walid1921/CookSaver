@@ -59,8 +59,27 @@ const AddRecipe = ({ addRecipe, setAddRecipe }) => {
   //   };
 
 
+  //! FOR INPUTS VALIDATION BEFORE FETCHING THE DATA
+  const validateForm = () => {
+    const requiredFields = ['title', 'url', 'publisher', 'preparationTime', 'servings'];
+    const invalidFields = requiredFields.filter(field => !formData[field]);
+
+    if (invalidFields.length > 0) {
+      setError(`Please fill in the following fields: ${invalidFields.join(', ')}`);
+      return false;
+    }
+
+    setError("");
+    return true;
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
 
     setIsLoading(true);
     setError("");
@@ -89,7 +108,7 @@ const AddRecipe = ({ addRecipe, setAddRecipe }) => {
     axios.post(`https://forkify-api.herokuapp.com/api/v2/recipes?key=${KEY}`, NewRecipe)
       .then(response => {
         setIsLoading(false);
-        console.log(response);
+        // console.log(response);
         iziToast.success({
           title: 'Success',
           message: 'Recipe added successfully!',
@@ -114,7 +133,7 @@ const AddRecipe = ({ addRecipe, setAddRecipe }) => {
       .catch(err => {
         setIsLoading(false);
         setError("An error occurred. Please try again later.");
-        console.log(err);
+        console.error(err);
       });
   };
 
