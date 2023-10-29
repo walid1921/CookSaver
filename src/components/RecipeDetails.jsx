@@ -57,7 +57,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
 
   //! fetching data by ID
-  
+
   useEffect(() => {
     setBookmarked(false);
 
@@ -80,7 +80,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
         const data = await response.json();
 
         setRecipe(data.data.recipe)
-        // console.log(data.data.recipe)
+        console.log(data.data.recipe)
 
 
         setIsLoading(false)
@@ -119,7 +119,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
   return (
 
     <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none bg-color-grey-light-1 rounded-br-xl'>
-      {isLoading ? <Loader /> :
+      {isLoading ? <div className="mt-32"><Loader /></div> :
         (<>
           <header style={{ backgroundImage: `url(${recipe.image_url})` }} className='h-[25%]  bg-cover bg-no-repeat bg-center object-cover relative'>
 

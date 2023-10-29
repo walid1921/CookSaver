@@ -119,7 +119,7 @@ function App() {
         // If all goes well, we return the parsed data.
         setRecipes(data.data.recipes); // change 'data.recipes' to the actual result from the API, u can check that by using console.log
         // console.log(data.status)
-        // console.log(data.data.recipes)
+        console.log(data.data.recipes)
         
   
         setIsLoading(false);

@@ -9,7 +9,7 @@ const SearchResult = ({ displayedRecipes, isLoading, error, handleSelectedRecipe
   return (
     <div className='flex flex-col justify-between h-full'>
 
-      {isLoading && <Loader />}
+      {isLoading && <div className="mt-52"><Loader /></div>}
 
       {!isLoading && !error && (
         <>
