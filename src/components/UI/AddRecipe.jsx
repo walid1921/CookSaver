@@ -267,9 +267,10 @@ const AddRecipe = ({ addRecipe, setAddRecipe }) => {
 
         </div >
 
-        <UploadBtn />
 
-        {isLoading && <div className='mt-3'><Loader /></div> }
+        {!isLoading && <UploadBtn />}
+
+        {isLoading && <Loader />}
         {error &&
           <div className="flex justify-center items-center mt-6">
             <div className=" bg-[#f8d7da] border border-[#f5c6cb] rounded-md p-4 text-center max-w-[300px] ">
