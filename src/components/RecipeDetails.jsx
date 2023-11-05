@@ -80,7 +80,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
         const data = await response.json();
 
         setRecipe(data.data.recipe)
-        console.log(data.data.recipe)
+        // console.log(data.data.recipe)
 
 
         setIsLoading(false)
@@ -106,7 +106,7 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
     // we need cleanUp function when the side effect keep running, it means in that case even when we closed the RecipeDetails window but the title still there
     return function () {
-      document.title = "Forkify (walid)"
+      document.title = "CookSaver (walid)"
       // console.log(`Cleaned up ${recipe.title}`)
     }
 
@@ -118,69 +118,66 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
   return (
 
-    <div className='col-start-2 col-end-4 h-[1050px] mb-20 select-none bg-color-grey-light-1 rounded-br-xl'>
+    <div className='col-start-2 col-end-4 h-[750px] mb-10 select-none bg-color-grey-light-1 rounded-br-xl'>
       {isLoading ? <div className="mt-32"><Loader /></div> :
         (<>
-          <header style={{ backgroundImage: `url(${recipe.image_url})` }} className='h-[25%]  bg-cover bg-no-repeat bg-center object-cover relative'>
+          <header className="h-[250px] flex justify-between">
+            <div style={{ backgroundImage: `url(${recipe.image_url})` }} className='w-full bg-cover bg-no-repeat bg-center object-cover relative'>
+
+              <button className='rounded-full p-2 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 opacity-75 hover:opacity-100 m-2' onClick={handleCloseRecipe}>
+                <MdArrowBackIos className='text-white w-7 h-7 ml-2' />
+              </button>
+
+              <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-bl-xl right-0 opacity-90 top-0 absolute'>
+                <p className=' logo-font text-white font-semibold text-[40px] opacity-100'>
+                  {recipe.title}
+                </p>
+              </div>
+
+              <div className='absolute left-0 bottom-0 bg-gradient-to-br from-color-primary to-color-grad-1 opacity-90 rounded-tr-xl'>
+                <div className="flex gap-12 py-2 px-6 text-white">
+                  <div className='flex items-center font-semibold'>
+                    <TbClockHour3 className='text-white w-6 h-6 mr-3' />
+                    <span className='mr-4'>{recipe.cooking_time}</span>
+                    <p>MIN</p>
+                  </div>
 
 
-            <button className='rounded-full p-2 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 opacity-75 hover:opacity-100 m-2' onClick={handleCloseRecipe}>
-              <MdArrowBackIos className='text-white w-7 h-7 ml-2' />
-            </button>
+                  <Servings servings={recipe.servings} />
 
 
-            <div className='bg-gradient-to-br from-color-primary to-color-grad-1 px-6 rounded-tl-xl right-0 opacity-80 bottom-0 absolute'>
-              <p className=' logo-font text-white font-semibold text-[40px] opacity-100'>
-                {recipe.title}
+                  {!isSaved
 
-              </p>
+                    ?
+
+                    <div className='py-2' onClick={onSaveRecipe}>
+                      <FiBookmark className=' text-white w-6 h-6 cursor-pointer transition-all ease-in duration-150 opacity-100 hover:opacity-50' />
+                    </div>
+
+                    :
+
+                    <div className='py-2'>
+                      <FiBookmark className='fill-white text-white w-6 h-6' />
+                    </div>
+                  }
+
+                </div>
+              </div>
+
             </div>
+
 
           </header>
 
-
           <section>
 
-            {/* SMALL NAV  */}
-
-            <div className='flex items-center justify-around py-5 bg-color-grey-light-1'>
-
-              <div className='flex items-center font-semibold'>
-                <TbClockHour3 className='text-color-primary w-6 h-6 mr-3' />
-                <span className='mr-4'>{recipe.cooking_time}</span>
-                <p>MIN</p>
-              </div>
-
-
-              <Servings servings={recipe.servings}
-              />
-
-              {/* onCountChange={handleTimeChange}  */}
-
-
-              {!isSaved
-
-                ?
-
-                <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75' onClick={onSaveRecipe}>
-                  <FiBookmark className=' text-white w-6 h-6' />
-                </div>
-
-                :
-
-                <div className=' rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
-                  <FiBookmark className='fill-white text-white w-6 h-6' />
-                </div>
-              }
-
-            </div>
 
             {/* RECIPE INGREDIENTS  */}
 
-            <div className='center flex-col py-16 bg-color-grey-light-2 w-full h-full'>
+            <div className='center flex-col py-8 bg-color-grey-light-2 w-full h-full'>
               <h2 className=' text-color-primary font-bold text-xl justify-center'>RECIPE INGREDIENTS</h2>
 
-              <ul className='pt-10 w-[90%] h-[250px]  flex  flex-wrap  justify-between items-left  text-gray-600 gap-5 overflow-y-scroll custom-scrollbar'>
+              <ul className='pt-10 w-[90%] h-[200px]  flex  flex-wrap  justify-between items-left  text-gray-600 gap-5 overflow-y-scroll custom-scrollbar'>
 
                 {/* ingredients is saved on the top to make a checking condition because it has an issue with map() 
                 we needed to make sure that the data we're trying to map over is defined before we try to use the map function. 
@@ -193,17 +190,18 @@ function RecipeDetails({ selectedId, handleCloseRecipe, KEY, handleSaved, savedR
 
             {/* HOW TO COOK IT  */}
 
-            <div className='center flex-col py-16 bg-color-grey-light-1 w-full gap-5 rounded-br-xl'>
+            <div className='center flex-col py-8 bg-color-grey-light-1 w-full gap-5 rounded-br-xl'>
               <h2 className=' text-color-primary  font-bold text-xl justify-center'>HOW TO COOK IT</h2>
-              <p className='text-gray-600 w-[70%] text-center'>This recipe was carefully designed and tested by <span className='font-bold'>{recipe.publisher}</span>. Please check out directions at their website.</p>
+              <p className='text-gray-600 w-[90%] text-center'>This recipe was carefully designed and tested by <span className='font-bold'>{recipe.publisher}</span>. Please check out directions at their website.</p>
               <DirectionBtn url={recipe.source_url} />
             </div>
 
           </section>
         </>
-        )}
+        )
+      }
 
-    </div>
+    </div >
   )
 }
 

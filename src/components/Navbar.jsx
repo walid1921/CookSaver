@@ -1,10 +1,10 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import AddRecipe from './UI/AddRecipe';
 import BookmarkContext from './BookmarkContext ';
 
 import { FiBookmark } from "react-icons/fi";
 import { FiEdit } from "react-icons/fi";
-import { ImSpoonKnife } from "react-icons/im";
+import { PiCookingPot } from "react-icons/pi";
 import SearchBar from './SearchBar';
 
 
@@ -21,36 +21,17 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
   const RecipeWindow = () => { setAddRecipe(true) }
 
 
-  const menuRef = useRef(null)
-
-  // const handleClickOutside = (event) => {
-  //   if (menuRef.current && !menuRef.current.contains(event.target)) {
-  //     setIsOpen(false)
-  //   }
-  // }
-
-
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
-
-
-
-
 
   return (
-    <div className='col-span-3  w-full center-between text-white bg-color-grey-light-1  h-28  z-10 rounded-t-xl px-10 mt-20 relative'>
+    <div className='col-span-3 w-full center-between text-white bg-color-grey-light-1  h-28  z-10 rounded-t-xl px-10 mt-10 relative'>
 
       {/* logo */}
       <div className='flex items-center gap-3'>
 
         <div className='rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
-          <a href="/"><ImSpoonKnife className='w-7 h-7 text-white cursor-pointer' /></a>
+          <a href="/"><PiCookingPot className='w-7 h-7 text-white cursor-pointer' /></a>
         </div>
-        <span className='logo-font text-gray-500 font-semibold text-[40px]'>Forkify</span>
+        <span className='logo-font text-gray-500 font-semibold text-[40px]'>CookSaver</span>
       </div>
 
 
@@ -68,7 +49,7 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
 
         {/* BOOKMARK  */}
         <div >
-          <div className='relative cursor-pointer' onClick={handleOpen} ref={menuRef}>
+          <div className='relative cursor-pointer' onClick={handleOpen}>
             <FiBookmark
               className=' text-color-primary w-6 h-6 ' />
 
@@ -79,13 +60,13 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
 
           {/* small nav  */}
 
-          <div className={`${isOpen ? 'flex' : 'hidden'} flex-col backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-28 right-0 `} >
+          <div className={`${isOpen ? 'flex' : 'hidden'} w-[400px] flex-col backdrop-blur-sm bg-white/60 transition ease-in duration-300 absolute top-28 right-0 rounded-bl-xl`} >
 
             {savedRecipes.map(saved => (
               <a
                 href={saved.source_url}
                 key={saved.id}
-                className='flex items-center gap-6 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 border-gray-200'>
+                className='flex items-center gap-6 pt-4 py-2 px-6 hover:bg-color-grey-light-1 cursor-pointer transition-all ease-in duration-150 border-b-2 rounded-bl-xl border-gray-200'>
                 <img
                   src={saved.image_url}
                   alt={saved.title}
@@ -95,6 +76,8 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
                   <p className='text-xs text-gray-600
             '>{saved.publisher}</p>
                 </div>
+
+                
                 <span onClick={() => handleDeleteSaved(saved.id)} className='text-red-600 cursor-pointer'>X</span>
               </a>
 

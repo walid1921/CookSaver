@@ -7,7 +7,7 @@ import ErrorMessage from './UI/ErrorMessage';
 const SearchResult = ({ displayedRecipes, isLoading, error, handleSelectedRecipe }) => {
 
   return (
-    <div className='flex flex-col justify-between h-full'>
+    <div className='flex flex-col justify-between h-[906px]'>
 
       {isLoading && <div className="mt-52"><Loader /></div>}
 

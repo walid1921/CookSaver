@@ -4,11 +4,11 @@ import Navbar from './components/Navbar';
 import SearchResult from './components/SearchResult';
 import Main from './components/Main';
 import Pagination from './components/UI/Pagination';
-import NumCharacters from './components/UI/NumCharacters';
 import NoResults from './components/UI/NoResults';
 import RecipeDetails from './components/RecipeDetails';
 import BookmarkContext from './components/BookmarkContext ';
 import useLocalStorageState from "./components/useLocalStorageState";
+import DefaultRecipes from './components/DefaultRecipes';
 
 
 // import recipesData from './assets/recipesData';
@@ -25,6 +25,7 @@ function App() {
   
   const [query, setQuery] = useState(""); // its for searchBar (we have to call query in the fetch api ), it must be in the App component because it's bring us info what user typed
   const [recipes, setRecipes] = useState([]); // to hold the fetched data (it can be an object {} or an Array []), it must be in the App component because its the  data we are going to store it in this array
+  const [defaultData, setDefaultData] = useState([]);
   const [isLoading, setIsLoading] = useState(false) // Handle Spinner or Loading message
   const [error, setError] = useState(""); // Handle Error message
   const [apiCalled, setApiCalled] = useState(false); // To handle if there is no results
@@ -37,10 +38,8 @@ function App() {
 
   const { setBookmarkCount } = useContext(BookmarkContext);
 
-  
-
-  //! Handling Pagination
-  const itemsPerPage  = 8
+  // ! Handle default Recipes
+  const itemsPerPage  = 6
   const totalItems = recipes.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage); // Calculate total pages
   const onPageChange = (pageNumber) => {setCurrentPage(pageNumber)}
@@ -54,6 +53,11 @@ function App() {
     setSelectedId((selectedId) => (id === selectedId ? null : id)) // here there is a feature that if the Recipe is clicked again it closes
   }
 
+  //! Handling Selected default recipe
+  const  handleSelectedDefaultRecipe  = (id) => {
+      setSelectedId((selectedId) => (id === selectedId ? null : id)) // here there is a feature that if the Recipe is clicked again it closes
+    }
+
   const handleCloseRecipe = () => {
     setSelectedId(null)
   }
@@ -63,14 +67,68 @@ function App() {
     setSavedRecipes(save => [...save, savedRecipes])
     }
 
-    //! Deleting a saved Recipe and subtract (-1) from the span
+  //! Deleting a saved Recipe and subtract (-1) from the span
    function handleDeleteSaved(i) {
     setSavedRecipes(saved => saved.filter(recipe => recipe.id !== i))
     setBookmarkCount((prevCount) =>  prevCount - 1 );
 
    }
-   
-   
+
+
+
+ //! Default Recipes
+   useEffect(() => { 
+     
+     const controller = new AbortController() 
+
+    async function fetchDefault() {
+
+      try { 
+        setIsLoading(true);
+        setError("")
+
+        const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=kebab&key=${KEY}`, {signal : controller.signal});
+
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        
+        const data = await response.json();
+
+        
+        if (data.results === 0){ 
+          throw new Error("Recipe not found");
+        }
+
+
+        setDefaultData(data.data.recipes); 
+        setIsLoading(false);
+        setError("")
+
+
+      } catch (error){
+        
+        if(error.name !== "AbortError") {
+          setError(error.message);
+          console.error(error.message);
+        }
+
+      } finally{
+        setIsLoading(false)
+        setApiCalled(true); 
+      }
+    }
+
+    handleCloseRecipe() 
+
+    fetchDefault();  
+    return () => { controller.abort(); }
+
+  }, [])
+
+
+//! fetchData function
   useEffect(() => { // We used useEffect to avoid any infinite loop can happen and also it has a good property that it shows our component content before the data is fetched
 
     // This u can do it in the end it just about no more racing and  stopping Unnecessary data been fetched too many times when we write any letter on the search bar. its not necessary to do it in the RecipeDetails fetch because we are sure there is no racing data, just one data from one Id
@@ -87,11 +145,9 @@ function App() {
       return;
     }
 
-    //! fetchData function
+  
     async function fetchRecipes() {
 
-      
-        
       try { // we use a try block to catch any potential errors.
 
         setIsLoading(true);
@@ -119,7 +175,7 @@ function App() {
         // If all goes well, we return the parsed data.
         setRecipes(data.data.recipes); // change 'data.recipes' to the actual result from the API, u can check that by using console.log
         // console.log(data.status)
-        console.log(data.data.recipes)
+        // console.log(data.data.recipes)
         
   
         setIsLoading(false);
@@ -160,9 +216,9 @@ function App() {
       <div className='container grid grid-cols-3 grid-rows-1'>
         <Navbar query={query} setQuery={setQuery} savedRecipes={savedRecipes} handleDeleteSaved={handleDeleteSaved} />
 
-        <div className='flex flex-col justify-between bg-white mb-[79px] rounded-bl-xl'>
+        <div className='flex flex-col justify-between bg-white rounded-bl-xl h-[750px] '>
 
-        {query.length < 4 && <NumCharacters/>}
+        {apiCalled && query.length < 4 && <DefaultRecipes defaultData={defaultData} isLoading={isLoading} error={error} handleSelectedDefaultRecipe={handleSelectedDefaultRecipe}/>}
 
         {(apiCalled && recipes.length > 0) ? 
         (<>
@@ -171,7 +227,7 @@ function App() {
           </>
         ) : 
 
-        (apiCalled && <NoResults />)}
+        (apiCalled && query.length > 4 && <NoResults />)}
 
         </div>
      

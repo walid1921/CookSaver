@@ -20,8 +20,7 @@ const Item = ({ displayedRecipes, handleSelectedRecipe }) => {
 
             <div >
               <h3 className='text-color-primary text-md uppercase font-semibold'>{recipe.title}</h3>
-              <p className='text-sm text-color-grey-light-3
-            '>{recipe.publisher}</p>
+              <p className='text-sm text-color-grey-light-3'>{recipe.publisher}</p>
             </div>
           </li>
         )
