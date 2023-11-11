@@ -27,11 +27,8 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
 
       {/* logo */}
       <div className='flex items-center gap-3'>
-
-        <div className='p-3 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
-          <a href="/"><PiCookingPot className='w-10 h-10 text-[#f38e82] cursor-pointer' /></a>
-        </div>
-        <span className='logo-font text-gray-500 font-semibold text-[40px]'>CookSaver</span>
+        <a href="/"><PiCookingPot className='w-10 h-10 text-[#f38e82] cursor-pointer transition-all ease-in duration-150 hover:opacity-75' /></a>
+        <span className='logo-font text-transparent bg-clip-text bg-gradient-to-br from-color-primary to-color-grad-1  font-semibold text-[40px]'>CookSaver</span>
       </div>
 
 
@@ -77,7 +74,7 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
             '>{saved.publisher}</p>
                 </div>
 
-                
+
                 <span onClick={() => handleDeleteSaved(saved.id)} className='text-red-600 cursor-pointer'>X</span>
               </a>
 

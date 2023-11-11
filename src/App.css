@@ -17,8 +17,6 @@ body{
   background-image: linear-gradient(to right top, #f38e82, #f2a98a, #f0c39d, #efdab9, #f3eed9);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
-  
 }
 
 .center{
