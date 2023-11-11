@@ -10,8 +10,8 @@ const Main = () => {
 
       <div className='flex items-center justify-center gap-3 h-[30%]'>
 
-        <div className='rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 opacity-50'>
-        <PiCookingPot className='w-5 h-5 text-white' />
+        <div className='rounded-full p-3  opacity-50'>
+        <PiCookingPot className='w-10 h-10 text-[#f38e82]' />
         </div>
         <span className='logo-font text-gray-300 font-semibold text-[30px]'>Enjoy your meal !</span>
       </div>

@@ -28,8 +28,8 @@ const Navbar = ({ query, setQuery, savedRecipes, handleDeleteSaved }) => {
       {/* logo */}
       <div className='flex items-center gap-3'>
 
-        <div className='rounded-full p-3 bg-gradient-to-br from-color-primary to-color-grad-1 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
-          <a href="/"><PiCookingPot className='w-8 h-8 text-white cursor-pointer' /></a>
+        <div className='p-3 cursor-pointer transition-all ease-in duration-150 hover:opacity-75'>
+          <a href="/"><PiCookingPot className='w-10 h-10 text-[#f38e82] cursor-pointer' /></a>
         </div>
         <span className='logo-font text-gray-500 font-semibold text-[40px]'>CookSaver</span>
       </div>

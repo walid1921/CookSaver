@@ -2,7 +2,7 @@ import Button from './UI/Button'
 
 function SearchBar({ query, setQuery }) {
   return (
-    <div className='bg-white rounded-full flex drop-shadow-md'>
+    <div className='rounded-full flex shadow-lg shadow-[#f38e82]/50'>
       <input
         type="text"
         placeholder='Search Your Recipe...'
