@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# ⏲️ CookSaver
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CookSaver is a Recipe app with API integration with robust handling of loading and error states. It empowers users to effortlessly search and view recipes, contribute their own creations, and bookmark their favorites. The app boasts a user-friendly interface tailored for food enthusiasts!
 
-## Available Scripts
+## 📹 Video
 
-In the project directory, you can run:
 
-### `yarn start`
+- Check it out live here [CookSaver](https://cook-saver-walid.netlify.app).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Technologies & Tools Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**`React`** **`Tailwind CSS`** **`Local storage`** **`React Icons`** **`izitoast`** **`Netlify`**
 
-### `yarn test`
+## 👾 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Search for a recipe which is coming from real API.
+- pagination.
+- Users can create their own recipes for later use.
+- Add and delete recipes to/from the saving list.
+- Users can be redirected to the original source of the recipe.
 
-### `yarn build`
+## 🔄 Project Process
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Implementation of React components and UI elements.
+- Integration of Tailwind CSS for styling.
+- Integration with the Recipes API.
+- Added local storage to save recipes.
+- Utilization of additional libraries/components as needed.
+- Implemented searching, creating, and deleting functionalities.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎯 Learning
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Learned how to work with important hooks like useState, useRef, useContext, and useEffect, including how to clean up the effect.
+- Learned how to make the components reusable to be used in the app. Additionally, learned the importance of keeping the code clean and organized for future improvements.
 
-### `yarn eject`
+## ✨ Improvement 
+- The app is still not responsive, but I have worked on many projects focusing on responsiveness.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🚦 Running the Project
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run the project in your local environment, follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone the repository to your local machine.
+2. Run `npm install` or `yarn` in the project directory to install the required dependencies.
+3. Run `npm run start` or `yarn start` to get the project started.
+4. Open [http://localhost:5173](http://localhost:5173) (or the address shown in your console) in your web browser to view the app.

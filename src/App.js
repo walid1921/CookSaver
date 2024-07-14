@@ -19,7 +19,7 @@ import DefaultRecipes from './components/DefaultRecipes';
 // When using API we have to see how we are going to use it. How it gives result in the end if (an Object or an Array)
 
 
-const KEY = 'a95fb5cd-2bcd-4075-802d-2fe6ce1c7e38'
+const KEY = 'f68a51f7-6ee3-4af4-ba41-286d14da8a66'
 
 function App() {
   
