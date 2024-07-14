@@ -4,6 +4,7 @@ CookSaver is a Recipe app with API integration with robust handling of loading a
 
 ## 📹 Video
 
+https://github.com/user-attachments/assets/0840bcfb-3e82-489d-9689-394d362fc0cb
 
 - Check it out live here [CookSaver](https://cook-saver-walid.netlify.app).
 
